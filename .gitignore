@@ -1,5 +1,8 @@
 # User specified
 videos/
+old.tests
+*.weights
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
