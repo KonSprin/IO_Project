@@ -10,6 +10,11 @@ def detect(img, net):
     image_height, image_width, image_channels = img.shape
     net.setInput(blob)
     outs = net.forward(layers_output)
+    
+    # #  Uncomment to see how blob works
+    # for b in blob:
+    #     for n, image in enumerate(b):
+    #         cv2.imshow(str(n), image)
 
     class_ids = []
     confidences = []
@@ -36,16 +41,3 @@ def detect(img, net):
                 class_ids.append(class_id)
 
     return class_ids, confidences, boxes
-
-
-def getColorName(B,G,R):
-    index = ["color","color_name","hex","R","G","B"]
-    csv = pd.read_csv("colors.csv", names=index, header=None)
-
-    minimum = 10000
-    for i in range(len(csv)):
-        d = abs(R- int(csv.loc[i,"R"])) + abs(G-int(csv.loc[i,"G"]))+ abs(B- int(csv.loc[i,"B"]))
-        if(d<=minimum):
-            minimum = d
-            cname = csv.loc[i,"color_name"]
-    return cname
