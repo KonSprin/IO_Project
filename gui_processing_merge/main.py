@@ -7,6 +7,7 @@ import platform
 import ctypes
 import csv
 import ast
+import cv2
 
 from GUICode import Ui_IO
 from video_processing import process
@@ -16,7 +17,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self.ui = Ui_IO()
         self.ui.setupUi(self)
-
+        self.ui.videoPath.setText("C:/Users/User/Desktop/Studia/5sem/IO/IO_project/IO_Project/videos/GrupaC1.avi")
         # SHOW YOURSELF
         self.show()
 
@@ -28,7 +29,8 @@ class MainWindow(QMainWindow):
         self.ui.BtnStartprocess.clicked.connect(self.detect)
 
         self.ui.btnSaveLogs.clicked.connect(self.save_logs)
-            
+
+        self.ui.btnPlayVideo.clicked.connect(self.play)
 
     def chooseVideo(self):
         starting_directory = ''
@@ -78,6 +80,27 @@ class MainWindow(QMainWindow):
             writer.writerow(['id', 'class', 'x_pos', 'y_pos', 'first appearance [s]'])
             for car in logger:
                 writer.writerow(car)
+
+    def play(self):
+        input_file = self.ui.videoPath.text()
+        output_file = input_file.split('.')[0] + '_output.' + input_file.split('.')[1]
+        cap = cv2.VideoCapture(output_file)
+        output_file = output_file.split("/")[-1]
+        while (cap.isOpened()):
+            ret, frame = cap.read()
+            if not ret:
+                break
+            frame = cv2.resize(frame, None, None, fx=0.5, fy=0.5)
+            cv2.imshow(output_file, frame)
+            key = cv2.waitKey(25)
+            
+            if key in [27, 1048603]:  # ESC key to abort, close window
+                cv2.destroyAllWindows()
+                break
+
+
+        cap.release()
+        # cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

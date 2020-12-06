@@ -154,11 +154,12 @@ class Ui_IO(object):
 
         self.horizontalLayout_2.addWidget(self.btnChooseVideo)
 
-
+        # self.btnPlayVideo = QPushButton(self.fr)
         self.verticalLayout_4.addWidget(self.frame_7)
 
 
         self.verticalLayout_2.addWidget(self.frame_3)
+
 
         self.frame_6 = QFrame(self.tab)
         self.frame_6.setObjectName(u"frame_6")
@@ -187,6 +188,33 @@ class Ui_IO(object):
 
 
         self.verticalLayout_2.addWidget(self.frame_6)
+
+        self.frame_16 = QFrame(self.tab)
+        self.frame_16.setObjectName(u"frame_16")
+        self.frame_16.setMaximumSize(QSize(16777215, 50))
+        self.frame_16.setFrameShape(QFrame.StyledPanel)
+        self.frame_16.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_11 = QHBoxLayout(self.frame_16)
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.btnPlayVideo = QPushButton(self.frame_16)
+        self.btnPlayVideo.setObjectName(u"btnPlayVideo")
+        self.btnPlayVideo.setMaximumSize(QSize(698, 16777215))
+        self.btnPlayVideo.setStyleSheet(u"QPushButton{\n"
+                                        "	border: 3px solid rgb(0, 0, 0);\n"
+                                        "	color: black;\n"
+                                        "	padding: 5px;\n"
+                                        "}\n"
+                                        "\n"
+                                        "QPushButton:hover{\n"
+                                        "	border: 5px solid rgb(0, 0, 0);\n"
+                                        "	color: rgb(57, 57, 57);\n"
+                                        "	padding: 3px;\n"
+                                        "	\n"
+                                        "}")
+
+        self.horizontalLayout_11.addWidget(self.btnPlayVideo)
+
+        self.verticalLayout_2.addWidget(self.frame_16)
 
         self.frame_4 = QFrame(self.tab)
         self.frame_4.setObjectName(u"frame_4")
@@ -391,6 +419,7 @@ class Ui_IO(object):
         # self.label_3.setText(QCoreApplication.translate("IO", u"Show file path", None))
         self.videoPath.setText(QCoreApplication.translate("IO", u"Video Path", None))
         self.btnChooseVideo.setText(QCoreApplication.translate("IO", u"Choose Video", None))
+        self.btnPlayVideo.setText(QCoreApplication.translate("IO", u"Play Video", None))
         self.BtnStartprocess.setText(QCoreApplication.translate("IO", u"Start Processing ", None))
         self.label.setText(QCoreApplication.translate("IO", u"Progress:", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("IO", u"Start", None))
