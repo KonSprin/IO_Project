@@ -2,6 +2,8 @@
 videos/
 old.tests
 *.weights
+logs/*.csv
+.vscode
 
 
 # Byte-compiled / optimized / DLL files
