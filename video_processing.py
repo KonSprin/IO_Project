@@ -7,7 +7,7 @@ from time import time
 from detections import detect
 
 def process(bar, file_path, log_dir, log_window):
-    # Set variables
+    #### Set variables
     PATH = str(os.path.dirname(os.path.abspath(__file__))) + "\\"
     FONT = cv2.FONT_HERSHEY_COMPLEX
     COLOUR = (200,200,0)
@@ -15,13 +15,15 @@ def process(bar, file_path, log_dir, log_window):
     first_start = time()
     frame_number = 0
     all_frames_log = []
-    # Input variables - theese should be passed down from GUI
+    #### Input variables - theese should be passed down from GUI
     INPUT_DIR = file_path
     LOG_DIR = log_dir + "/" +INPUT_DIR.split('/')[-1].split('.')[0] + '.csv'
     print(INPUT_DIR)
     print(LOG_DIR)
+    ### Soe vars for adjusting
     do_skip = True  # Should we skip frames
     skip = 4    # Default number of skipped frames. Can be adjusted depending on machine
+    desired_fps = 10
 
     OUTPUT_DIR = INPUT_DIR.split('.')[0] + '_output.' + INPUT_DIR.split('.')[1]
 
@@ -41,6 +43,10 @@ def process(bar, file_path, log_dir, log_window):
     result = cv2.VideoWriter(OUTPUT_DIR, VIDEO_CODEC, VIDEO_FPS , (VIDEO_WIDTH, VIDEO_HEIGHT))
 
     start = time() # measure time for adjusting skipping frames
+    
+    if VIDEO_FRAME_COUNT/(VIDEO_FPS*60) > 15: 
+        raise InterruptedError("Video too long")
+
     while frame_number < VIDEO_FRAME_COUNT:
         frame_number += 1
 
@@ -85,11 +91,11 @@ def process(bar, file_path, log_dir, log_window):
             print("mean fps for last " + str(skip) + " frames: " + str(skip/time5f))
             print("mean frames per sec: " + str(frame_number/(time() - first_start)))
             print("total frames processed: " + str(frame_number))
-            if frame_number/(time() - first_start) < 5:
+            if frame_number/(time() - first_start) < desired_fps:
                 skip += 1
                 print("new skip: " + str(skip))
                 current_skip = skip
-            elif frame_number/(time() - first_start) > 6 and skip > 1:
+            elif frame_number/(time() - first_start) > desired_fps+1 and skip > 1:
                 skip -= 1
                 print("new skip: " + str(skip))
                 current_skip = skip
