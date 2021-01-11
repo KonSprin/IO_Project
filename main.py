@@ -43,8 +43,11 @@ class MainWindow(QMainWindow):
 
         fname = QFileDialog.getOpenFileName(self, 'Choose Video', str(os.path.dirname(os.path.abspath(__file__))),
                                             "Video Files (*.mp4 *.mkv *.avi)")
-        # SET lineEdit TO CHOSEN PATH
-        self.ui.videoPath.setText(fname[0])
+        if fname[0].split('.')[-1] not in ['mp4', 'mkv', 'avi']:
+            ctypes.windll.user32.MessageBoxW(0, "Niepoprawne rozszerzenie pliku", "Error", 1)
+        else:
+            # SET lineEdit TO CHOSEN PATH
+            self.ui.videoPath.setText(fname[0])
 
     # Set logs path
     def chooseSaveFile(self):
