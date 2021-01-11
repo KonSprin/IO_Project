@@ -11,6 +11,7 @@
 2. Download [this file](https://pjreddie.com/media/files/yolov3.weights) and put it in main folder.
 3. Create logs and videos folder (~~Or don't~~)
 4. You are good to go 
+ > python ./main.py
 
 ## User manual
 1. First you need to choose the destination folder fo log files
